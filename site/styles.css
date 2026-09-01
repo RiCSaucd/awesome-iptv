@@ -1,0 +1,273 @@
+:root {
+  color-scheme: dark;
+  --bg: #12110f;
+  --bg-raised: #1c1a17;
+  --ink: #f3ece3;
+  --muted: #b7aa9a;
+  --line: #3a342c;
+  --accent: #c45c26;
+  --accent-ink: #fff6ee;
+  --chip: #2a251f;
+  --radius: 14px;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 480px at 10% -10%, #3a2418 0%, transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+a {
+  color: var(--accent-ink);
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+}
+
+.skip-link:focus {
+  left: 12px;
+  top: 12px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 8px 12px;
+  z-index: 10;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-end;
+  padding: 28px 8vw 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.logo {
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.tagline {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.nav a:hover,
+.nav a:focus {
+  color: var(--ink);
+}
+
+.hero {
+  padding: 48px 8vw 24px;
+  max-width: 52rem;
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+  color: var(--accent);
+  margin: 0 0 8px;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+
+.lede {
+  color: var(--muted);
+  margin: 0 0 28px;
+}
+
+.search input {
+  width: min(100%, 36rem);
+  padding: 14px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  color: var(--ink);
+  font: inherit;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  padding: 12px 8vw 72px;
+}
+
+.filters-label {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+.chips {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chip {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--chip);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 8px 12px;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+
+.section-head h2,
+.section-head h3 {
+  margin: 0;
+}
+
+.count {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.card {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 16px 14px;
+  min-height: 8.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.card a:hover,
+.card a:focus {
+  color: #ffd9bf;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.empty {
+  color: var(--muted);
+  padding: 24px 0;
+}
+
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 24px 8vw 40px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+@media (max-width: 800px) {
+  .topbar,
+  .layout {
+    display: block;
+  }
+
+  .nav {
+    margin-top: 16px;
+  }
+
+  .chips {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+}
