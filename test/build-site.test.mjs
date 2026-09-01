@@ -14,7 +14,11 @@ describe('site build', () => {
     assert.match(html, /<title>Awesome IPTV<\/title>/);
     assert.match(html, /window\.__AWESOME_IPTV__/);
     assert.match(html, /assets\/styles\.css/);
+    assert.match(html, /favicon\.ico/);
     assert.match(html, /IPTVnator/);
+
+    const icon = await readFile(join(root, 'dist', 'favicon.ico'));
+    assert.ok(icon.length > 0);
 
     const catalog = JSON.parse(
       await readFile(join(root, 'dist', 'catalog.json'), 'utf8'),

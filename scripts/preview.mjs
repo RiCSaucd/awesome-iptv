@@ -89,6 +89,8 @@ function contentType(extension) {
       return 'image/svg+xml';
     case '.png':
       return 'image/png';
+    case '.ico':
+      return 'image/x-icon';
     default: {
       const _exhaustive = extension;
       void _exhaustive;

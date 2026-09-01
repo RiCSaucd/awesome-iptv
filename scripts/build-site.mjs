@@ -27,6 +27,8 @@ async function build() {
   await mkdir(join(dist, 'assets'), { recursive: true });
   await copyFile(join(siteDir, 'styles.css'), join(dist, 'assets', 'styles.css'));
   await copyFile(join(siteDir, 'app.js'), join(dist, 'assets', 'app.js'));
+  await copyFile(join(siteDir, 'favicon.svg'), join(dist, 'assets', 'favicon.svg'));
+  await copyFile(join(siteDir, 'favicon.ico'), join(dist, 'favicon.ico'));
 
   const html = renderHtml(site, catalog);
   await writeFile(join(dist, 'index.html'), html, 'utf8');
@@ -177,6 +179,8 @@ function renderHtml(config, catalog) {
   <meta name="description" content="${escapeHtml(config.description)}">
   <meta name="theme-color" content="${escapeHtml(config.themeColor)}">
   <link rel="canonical" href="${escapeHtml(canonical)}">
+  <link rel="icon" href="${escapeHtml(config.base)}favicon.ico" sizes="any">
+  <link rel="icon" href="${escapeHtml(asset('favicon.svg'))}" type="image/svg+xml">
   <link rel="stylesheet" href="${escapeHtml(asset('styles.css'))}">
 </head>
 <body>
