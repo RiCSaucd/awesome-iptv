@@ -1,0 +1,11 @@
+{
+  "name": "awesome-iptv",
+  "private": true,
+  "type": "module",
+  "description": "A curated list of IPTV resources, with a static catalog driven by site.config.mjs.",
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "preview": "node scripts/preview.mjs",
+    "test": "node --test test/*.test.mjs"
+  }
+}

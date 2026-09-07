@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Awesome IPTV">
+  <rect width="32" height="32" rx="8" fill="#1c1a17"/>
+  <rect x="6" y="8" width="20" height="14" rx="2" fill="#c45c26"/>
+  <rect x="8" y="10" width="16" height="10" fill="#12110f"/>
+  <rect x="12" y="22" width="8" height="2" fill="#c45c26"/>
+  <rect x="10" y="24" width="12" height="2" rx="1" fill="#3a342c"/>
+</svg>
