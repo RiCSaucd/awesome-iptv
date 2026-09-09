@@ -1,0 +1,24 @@
+{
+  "name": "awesome-iptv-stremio-addon",
+  "version": "1.0.0",
+  "description": "Stremio addon that turns any M3U playlist into browsable, playable live TV channels.",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "stremio",
+    "stremio-addon",
+    "iptv",
+    "m3u",
+    "m3u8"
+  ],
+  "license": "CC0-1.0",
+  "dependencies": {
+    "stremio-addon-sdk": "^1.6.10"
+  }
+}
