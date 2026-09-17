@@ -40,14 +40,9 @@ function bind() {
   }
   if (player instanceof HTMLVideoElement) {
     player.addEventListener('error', () => {
-      const mediaError = player.error;
-      if (!mediaError) {
-        return;
-      }
-      if (mediaError.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
-        showError(
-          'This browser cannot play HLS in-page (hls.js did not load). Try Safari, a TV browser, or VLC.',
-        );
+      // A missing hls.js is reported by play() before any source is set, so every
+      // error that reaches the element here is a genuine stream failure.
+      if (!player.error) {
         return;
       }
       showError('This stream failed to play. Try another channel, or open it in VLC.');
