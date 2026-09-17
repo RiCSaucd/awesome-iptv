@@ -1,0 +1,43 @@
+# Living-room stack: catalog + Watch on :4173, Stremio addon on :7000.
+#
+#   docker compose up --build
+#
+# Then on a phone or TV on the same Wi-Fi, open http://<this-computer>:4173/
+# Watch is at /watch. Stremio on this computer: http://127.0.0.1:7000/manifest.json
+#
+# To use your own playlist instead of the bundled test streams:
+#   IPTV_PLAYLIST_URL=/playlists/mine.m3u docker compose up
+# and put mine.m3u in ./playlists/ (mounted at /playlists in both services).
+
+name: awesome-iptv-home
+
+services:
+  catalog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4173:4173"
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4173
+      ADDON_PORT: 7000
+      SITE_BASE: /
+      IPTV_PLAYLIST_URL: ${IPTV_PLAYLIST_URL:-/playlists/sample.m3u}
+    volumes:
+      - ./playlists:/playlists:ro
+    restart: unless-stopped
+
+  addon:
+    build:
+      context: .
+      dockerfile: stremio-addon/Dockerfile
+    ports:
+      - "7000:7000"
+    environment:
+      HOST: 0.0.0.0
+      PORT: 7000
+      IPTV_PLAYLIST_URL: ${IPTV_PLAYLIST_URL:-/playlists/sample.m3u}
+    volumes:
+      - ./playlists:/playlists:ro
+    restart: unless-stopped
