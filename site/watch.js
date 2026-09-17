@@ -38,6 +38,21 @@ function bind() {
       render();
     });
   }
+  if (player instanceof HTMLVideoElement) {
+    player.addEventListener('error', () => {
+      const mediaError = player.error;
+      if (!mediaError) {
+        return;
+      }
+      if (mediaError.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
+        showError(
+          'This browser cannot play HLS in-page (hls.js did not load). Try Safari, a TV browser, or VLC.',
+        );
+        return;
+      }
+      showError('This stream failed to play. Try another channel, or open it in VLC.');
+    });
+  }
 }
 
 async function loadPlaylist() {
@@ -132,7 +147,7 @@ function play(channel) {
     return;
   }
 
-  if (player.canPlayType('application/vnd.apple.mpegurl')) {
+  if (canUseNativeHls(player)) {
     player.src = channel.url;
     void player.play().catch((error) => {
       showError(error instanceof Error ? error.message : 'Playback failed');
@@ -143,6 +158,21 @@ function play(channel) {
   showError(
     'This browser cannot play HLS in-page (hls.js did not load). Try Safari, a TV browser, or VLC.',
   );
+}
+
+/**
+ * Native HLS is reliable on Safari / some TV browsers. Chromium often returns a
+ * truthy canPlayType and then fails with MEDIA_ERR_SRC_NOT_SUPPORTED.
+ * @param {HTMLVideoElement} video
+ * @returns {boolean}
+ */
+function canUseNativeHls(video) {
+  if (!video.canPlayType('application/vnd.apple.mpegurl')) {
+    return false;
+  }
+  const ua = navigator.userAgent;
+  const safari = /Safari/i.test(ua) && !/Chrome|Chromium|Edg|OPR|Android/i.test(ua);
+  return safari;
 }
 
 function teardownHls() {

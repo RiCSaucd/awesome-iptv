@@ -175,7 +175,10 @@ async function sendCatalogIndex(res, filePath, req) {
     '</body>',
     `<script>window.__HOME_ADDON_PORT__ = ${JSON.stringify(String(addonPort))};window.__HOME_HOST__ = ${JSON.stringify(hostname)};</script></body>`,
   );
-  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.writeHead(200, {
+    'Content-Type': 'text/html; charset=utf-8',
+    'Cache-Control': 'no-store',
+  });
   res.end(html);
 }
 
@@ -193,7 +196,10 @@ async function sendSiteFile(res, filename, transform) {
   }
   let html = await readFile(filePath, 'utf8');
   html = transform(html);
-  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.writeHead(200, {
+    'Content-Type': 'text/html; charset=utf-8',
+    'Cache-Control': 'no-store',
+  });
   res.end(html);
 }
 
@@ -218,7 +224,10 @@ function sendFile(res, filePath) {
     res.end('Not found');
     return;
   }
-  res.writeHead(200, { 'Content-Type': contentType(extname(filePath)) });
+  res.writeHead(200, {
+    'Content-Type': contentType(extname(filePath)),
+    'Cache-Control': extensionCacheControl(extname(filePath)),
+  });
   createReadStream(filePath).pipe(res);
 }
 
@@ -250,5 +259,20 @@ function contentType(extension) {
       void _exhaustive;
       return 'application/octet-stream';
     }
+  }
+}
+
+/**
+ * @param {string} extension
+ * @returns {string}
+ */
+function extensionCacheControl(extension) {
+  switch (extension) {
+    case '.html':
+    case '.js':
+    case '.css':
+      return 'no-store';
+    default:
+      return 'public, max-age=300';
   }
 }
