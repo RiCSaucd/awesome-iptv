@@ -116,14 +116,6 @@ function play(channel) {
 
   teardownHls();
 
-  if (player.canPlayType('application/vnd.apple.mpegurl')) {
-    player.src = channel.url;
-    void player.play().catch((error) => {
-      showError(error instanceof Error ? error.message : 'Playback failed');
-    });
-    return;
-  }
-
   const HlsCtor = window.Hls;
   if (HlsCtor && HlsCtor.isSupported()) {
     hls = new HlsCtor();
@@ -140,8 +132,16 @@ function play(channel) {
     return;
   }
 
+  if (player.canPlayType('application/vnd.apple.mpegurl')) {
+    player.src = channel.url;
+    void player.play().catch((error) => {
+      showError(error instanceof Error ? error.message : 'Playback failed');
+    });
+    return;
+  }
+
   showError(
-    'This browser cannot play HLS in-page. Copy the channel URL into VLC, or try Safari / a TV browser.',
+    'This browser cannot play HLS in-page (hls.js did not load). Try Safari, a TV browser, or VLC.',
   );
 }
 
