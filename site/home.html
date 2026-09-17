@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>This house — Awesome IPTV</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/home.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <a href="/" class="logo">Awesome IPTV</a>
+      <p class="tagline">Living-room setup on your Wi-Fi</p>
+    </div>
+    <nav class="nav" aria-label="Primary">
+      <a href="/">Catalog</a>
+      <a href="/watch">Watch</a>
+      <a href="/home" aria-current="page">This house</a>
+    </nav>
+  </header>
+  <main class="house">
+    <h1>Use this in the house</h1>
+    <p class="lede">Run the stack on one always-on computer (or a Raspberry Pi / NAS). Phones, tablets, and TVs on the same Wi-Fi open the catalog and Watch page. Stremio on <em>this</em> computer can install the addon over localhost.</p>
+
+    <ol class="steps">
+      <li>
+        <h2>1. Start the stack</h2>
+        <p>On this computer, from the repo:</p>
+        <pre><code>npm run home</code></pre>
+        <p>Or with Docker:</p>
+        <pre><code>docker compose up --build</code></pre>
+      </li>
+      <li>
+        <h2>2. Open the catalog on any device</h2>
+        <p>Use one of these URLs on a phone or TV browser:</p>
+        <ul id="catalog-urls" class="url-list"></ul>
+      </li>
+      <li>
+        <h2>3. Watch live TV in the browser</h2>
+        <p>Same devices, no extra app: <a id="watch-link" href="/watch">Watch</a>. That page reads the playlist this box is serving (default is a tiny test list; point <code>IPTV_PLAYLIST_URL</code> at your own <code>.m3u</code> for real channels).</p>
+      </li>
+      <li>
+        <h2>4. Optional: Stremio on this computer</h2>
+        <p>Install <a href="https://www.stremio.com/">Stremio</a> on the same machine as the addon. In Stremio go to <strong>Addons → Add addon</strong> and paste:</p>
+        <p><code id="addon-localhost"></code></p>
+        <p class="note">Stremio only accepts <code>http://127.0.0.1</code> without HTTPS. Phones and TVs should use the Watch page instead of trying to add <code id="addon-lan"></code> — that LAN URL will be rejected unless you put TLS in front of it.</p>
+      </li>
+    </ol>
+  </main>
+  <script type="module" src="/assets/home.js"></script>
+</body>
+</html>
