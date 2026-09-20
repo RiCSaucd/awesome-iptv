@@ -35,6 +35,18 @@ function channelId(attributes, name, url) {
     return `iptv:x-${digest.slice(0, 16)}`
 }
 
+// A group-title often carries several genres separated by semicolons — iptv-org
+// writes "Animation;Classic;Movies". Commas belong to a genre's own name
+// ("News, Talk"), so only ";" splits.
+function parseGroups(raw) {
+    const groups = []
+    for (const part of String(raw || '').split(';')) {
+        const group = part.trim()
+        if (group && !groups.includes(group)) groups.push(group)
+    }
+    return groups.length ? groups : ['Uncategorized']
+}
+
 // #EXTVLCOPT:http-user-agent=… and friends carry the headers a stream needs.
 function parseVlcOption(line, headers) {
     const value = line.slice('#EXTVLCOPT:'.length)
@@ -108,7 +120,7 @@ function parseM3U(text) {
             name,
             url,
             logo: attributes['tvg-logo'] || '',
-            group: attributes['group-title'] || group || 'Uncategorized',
+            groups: parseGroups(attributes['group-title'] || group),
             language: attributes['tvg-language'] || '',
             country: attributes['tvg-country'] || '',
             headers

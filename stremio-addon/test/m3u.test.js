@@ -22,7 +22,7 @@ test('parses attributes, name and url', () => {
     assert.equal(news.name, 'News One')
     assert.equal(news.url, 'https://example.com/news.m3u8')
     assert.equal(news.logo, 'http://logo/news.png')
-    assert.equal(news.group, 'News')
+    assert.deepEqual(news.groups, ['News'])
     assert.equal(news.country, 'US')
     assert.equal(news.language, 'English')
 })
@@ -37,7 +37,7 @@ test('collects EXTVLCOPT headers', () => {
 
 test('falls back to EXTGRP when group-title is absent', () => {
     const movie = parseM3U(PLAYLIST)[2]
-    assert.equal(movie.group, 'Movies')
+    assert.deepEqual(movie.groups, ['Movies'])
 })
 
 test('derives a stable id when tvg-id is missing', () => {
@@ -63,7 +63,7 @@ https://example.com/two.m3u8
 test('handles a comma inside an attribute value', () => {
     const [channel] = parseM3U('#EXTM3U\n#EXTINF:-1 group-title="News, Talk",Real Name\nhttps://e/a\n')
     assert.equal(channel.name, 'Real Name')
-    assert.equal(channel.group, 'News, Talk')
+    assert.deepEqual(channel.groups, ['News, Talk'])
 })
 
 test('ignores unknown directives and blank lines', () => {
@@ -80,4 +80,23 @@ https://example.com/only.m3u8
 
 test('returns nothing for an empty playlist', () => {
     assert.deepEqual(parseM3U(''), [])
+})
+
+test('splits a semicolon-separated group-title into separate genres', () => {
+    const [channel] = parseM3U(
+        '#EXTM3U\n#EXTINF:-1 group-title="Animation;Classic;Movies",Multi\nhttps://e/a\n'
+    )
+    assert.deepEqual(channel.groups, ['Animation', 'Classic', 'Movies'])
+})
+
+test('trims and de-duplicates the genres within one group-title', () => {
+    const [channel] = parseM3U(
+        '#EXTM3U\n#EXTINF:-1 group-title=" News ; Movies ;News;; ",Messy\nhttps://e/a\n'
+    )
+    assert.deepEqual(channel.groups, ['News', 'Movies'])
+})
+
+test('falls back to Uncategorized when no group survives', () => {
+    const [channel] = parseM3U('#EXTM3U\n#EXTINF:-1 group-title=" ; ",No Group\nhttps://e/a\n')
+    assert.deepEqual(channel.groups, ['Uncategorized'])
 })

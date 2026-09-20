@@ -21,8 +21,8 @@ function toMeta(channel) {
         posterShape: 'square',
         logo: channel.logo || undefined,
         background: channel.logo || undefined,
-        genres: [channel.group],
-        description: [channel.group, channel.country, channel.language]
+        genres: channel.groups,
+        description: [channel.groups.join(', '), channel.country, channel.language]
             .filter(Boolean)
             .join(' · ')
     }
@@ -37,7 +37,7 @@ function toStream(channel) {
     const stream = {
         url: channel.url,
         name: 'IPTV',
-        description: channel.group ? `${channel.name} (${channel.group})` : channel.name,
+        description: `${channel.name} (${channel.groups.join(', ')})`,
         behaviorHints: { notWebReady }
     }
     if (hasHeaders) {
@@ -51,7 +51,7 @@ function matches(channel, search) {
     const needle = search.toLowerCase()
     return (
         channel.name.toLowerCase().includes(needle) ||
-        channel.group.toLowerCase().includes(needle)
+        channel.groups.join(' ').toLowerCase().includes(needle)
     )
 }
 
@@ -100,7 +100,8 @@ async function createAddon() {
 
         const filtered = channels.filter(
             (channel) =>
-                (!extra.genre || channel.group === extra.genre) && matches(channel, extra.search)
+                (!extra.genre || channel.groups.includes(extra.genre)) &&
+                matches(channel, extra.search)
         )
 
         return {

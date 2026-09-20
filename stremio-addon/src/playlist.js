@@ -24,7 +24,7 @@ async function readSource(source) {
 function index(channels) {
     const byId = new Map()
     for (const channel of channels) byId.set(channel.id, channel)
-    const genres = [...new Set(channels.map((channel) => channel.group))].sort((a, b) =>
+    const genres = [...new Set(channels.flatMap((channel) => channel.groups))].sort((a, b) =>
         a.localeCompare(b)
     )
     return { byId, genres }

@@ -9,7 +9,7 @@ const channel = {
     name: 'News One',
     url: 'https://example.com/news.m3u8',
     logo: 'http://logo/news.png',
-    group: 'News',
+    groups: ['News'],
     language: 'English',
     country: 'US',
     headers: {}
@@ -51,4 +51,11 @@ test('custom headers are passed through as proxy headers', () => {
     assert.deepEqual(stream.behaviorHints.proxyHeaders, {
         request: { 'User-Agent': 'CustomAgent/1.0' }
     })
+})
+
+test('a multi-genre channel advertises every genre it carries', () => {
+    const multi = { ...channel, groups: ['Animation', 'Movies'] }
+    assert.deepEqual(toMeta(multi).genres, ['Animation', 'Movies'])
+    assert.equal(toMeta(multi).description, 'Animation, Movies · US · English')
+    assert.equal(toStream(multi).description, 'News One (Animation, Movies)')
 })
