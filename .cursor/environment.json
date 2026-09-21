@@ -1,0 +1,10 @@
+{
+  "name": "awesome-iptv",
+  "install": "npm install && npm --prefix stremio-addon install",
+  "terminals": [
+    {
+      "name": "site-preview",
+      "command": "npm run preview"
+    }
+  ]
+}
