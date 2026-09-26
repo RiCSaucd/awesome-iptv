@@ -1,0 +1,78 @@
+.watch {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+  gap: 24px;
+  padding: 24px 8vw 64px;
+}
+
+.player-wrap video {
+  width: 100%;
+  background: #000;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  aspect-ratio: 16 / 9;
+}
+
+.now-playing {
+  margin: 10px 0 0;
+  color: var(--muted);
+}
+
+.player-error {
+  color: #ffb4a2;
+}
+
+.channel-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+
+.group-filter select,
+.channel-pane .search input {
+  width: 100%;
+}
+
+.channel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.channel-list button {
+  width: 100%;
+  text-align: left;
+  background: var(--bg-raised);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.channel-list button[aria-current="true"] {
+  border-color: var(--accent);
+  background: #2a1c14;
+}
+
+.channel-list small {
+  display: block;
+  color: var(--muted);
+}
+
+@media (max-width: 800px) {
+  .watch {
+    grid-template-columns: 1fr;
+  }
+
+  .channel-list {
+    max-height: 40vh;
+  }
+}

@@ -11,6 +11,7 @@ module.exports = {
     // Any M3U/M3U8 URL or a path to a local playlist file.
     playlistUrl: process.env.IPTV_PLAYLIST_URL || 'https://iptv-org.github.io/iptv/index.m3u',
     port: integer(process.env.PORT, 7000),
+    host: process.env.HOST || '0.0.0.0',
     ttlMs: integer(process.env.IPTV_PLAYLIST_TTL_MINUTES, 60) * 60 * 1000,
     fetchTimeoutMs: integer(process.env.IPTV_FETCH_TIMEOUT_SECONDS, 30) * 1000,
     // 0 keeps every channel in the playlist.

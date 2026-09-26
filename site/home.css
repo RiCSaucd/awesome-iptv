@@ -1,0 +1,50 @@
+.house {
+  padding: 40px 8vw 72px;
+  max-width: 46rem;
+}
+
+.house h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin: 0 0 12px;
+}
+
+.house h2 {
+  font-size: 1.15rem;
+  margin: 0 0 8px;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.steps li {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+
+.steps pre {
+  background: #12110f;
+  border-radius: 10px;
+  padding: 12px 14px;
+  overflow-x: auto;
+}
+
+.steps code {
+  color: #ffd9bf;
+}
+
+.url-list {
+  padding-left: 1.2rem;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 0.95rem;
+}

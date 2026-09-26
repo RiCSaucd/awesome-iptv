@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Watch — Awesome IPTV</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/watch.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <a href="/" class="logo">Awesome IPTV</a>
+      <p class="tagline">Watch on this Wi-Fi</p>
+    </div>
+    <nav class="nav" aria-label="Primary">
+      <a href="/">Catalog</a>
+      <a href="/watch" aria-current="page">Watch</a>
+      <a href="/home">This house</a>
+    </nav>
+  </header>
+  <main class="watch">
+    <section class="player-wrap">
+      <video id="player" controls playsinline></video>
+      <p id="now-playing" class="now-playing">Pick a channel</p>
+      <p id="player-error" class="player-error" hidden></p>
+    </section>
+    <aside class="channel-pane">
+      <label class="search">
+        <span class="visually-hidden">Search channels</span>
+        <input id="channel-search" type="search" placeholder="Search channels…" autocomplete="off">
+      </label>
+      <label class="group-filter">
+        <span class="visually-hidden">Group</span>
+        <select id="channel-group">
+          <option value="">All groups</option>
+        </select>
+      </label>
+      <p class="meta"><span id="channel-count">0</span> channels</p>
+      <ul id="channel-list" class="channel-list"></ul>
+    </aside>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.18/dist/hls.min.js" defer></script>
+  <script type="module" src="/assets/watch.js"></script>
+</body>
+</html>
